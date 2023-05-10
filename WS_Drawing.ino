@@ -45,7 +45,7 @@ void drawIqomah(int DrawAdd)  // Countdown Iqomah (9 menit)
     int               mnt, scd,cn_l ;
     char              locBuff[6];           
     
-    cn_l  = (Iqomah[SholatNow]*60);
+    cn_l  = 59; //(Iqomah[SholatNow]*60);
     //Disp.drawRect(1,2,62,13);
     if((Tmr-lsRn) > 1000 and ct <=cn_l)
       {
@@ -80,14 +80,14 @@ uint16_t y;
      char  BuffJ[6];
     char  BuffM[6];
     char  BuffD[6];
-    sprintf(BuffJ,"%02d",now.hour());
-    sprintf(BuffM,"%02d",now.minute());
-  //  sprintf(BuffD,"%02d",now.second());
-    fType(3);
-    Disp.drawText(0,y,BuffJ);  //tampilkan jam
-    Disp.drawText(19,y,BuffM);  //tampilkan menit
-  //  fType(3);
-  //  Disp.drawText(19,y,BuffD);  //tampilkan detik
+//    sprintf(BuffJ,"%02d",now.hour());
+//    sprintf(BuffM,"%02d",now.minute());
+//  //  sprintf(BuffD,"%02d",now.second());
+//    fType(3);
+//    Disp.drawText(0,0,BuffJ);  //tampilkan jam
+//    Disp.drawText(19,0,BuffM);  //tampilkan menit
+//  //  fType(3);
+//  //  Disp.drawText(19,y,BuffD);  //tampilkan detik
     Disp.drawRect(15,y+3,16,y+5,1);
     Disp.drawRect(15,y+10,16,y+12,1);
     DoSwap = true; 
@@ -106,40 +106,60 @@ uint16_t y;
     fType(1); dwCtr(33,9,BuffTime);   //jadwal sholatnya
     DoSwap = true;          
   }
-
+bool stateI = false;
 void drawSholat(int DrawAdd)
   {
     // check RunSelector
 //    int DrawAdd = 0b0000000000000100;
     if(!dwDo(DrawAdd)) return; 
-
-    static uint8_t    x;
-    static uint8_t    s; // 0=in, 1=out
+ 
+    static int    x,x1=-16;
+    static uint8_t    s,s1; // 0=in, 1=out
     static uint8_t    sNum; 
-    static uint16_t   lsRn;
+    static uint16_t   lsRn,lsRn1;
     uint16_t          Tmr = millis();
     uint8_t           c=0;
     uint8_t    first_sNum = 0; 
     int               DrawWd=DWidth - c;    
+    char  BuffJ[6];
+    char  BuffM[6];
+    int Dtk = now.second();
+
+    if((Tmr-lsRn1)>100) 
+      {
+        if(s1==0 and x1<0){x1++;lsRn1=Tmr;}
+        if(s1==1 and x1>-16 and stateI == false){x1--;lsRn1=Tmr;}
+      }
+      
+    if((Tmr-lsRn1)>2000 and s1 ==0 and stateI == false) {       stateI = true;}
+    if (x1 == -16 and s1==1 ) 
+      { 
+        
+           dwDone(DrawAdd);
+          
+        s1=0;
+      }
 
     if((Tmr-lsRn)>10) 
       {
-        if(s==0 and x<(DrawWd/2)){x++;lsRn=Tmr;}
+        if(s==0 and x<(DrawWd/2) and stateI==true){x++;lsRn=Tmr;}
         if(s==1 and x>0){x--;lsRn=Tmr;}
       }
       
     if((Tmr-lsRn)>2000 and x ==(DrawWd/2)) {s=1;}
-    if (x == 0 and s==1) 
+    if (x == 0 and s==1 and stateI==true) 
       { 
-        if (sNum <7){sNum++;}
+       if (sNum <7){sNum++;}
         else 
           { 
-           dwDone(DrawAdd);
+           stateI = false;
+          // Serial.println("false");
            sNum=0;
+            s1=1; 
           } 
         s=0;
       }
-
+    
     if(Prm.SI==0) {first_sNum =1;}
     else {first_sNum =0;}
     if(Prm.SI==0 and sNum == 0) {sNum=1;}
@@ -154,9 +174,26 @@ void drawSholat(int DrawAdd)
     else {//drawSmallTS(10);
     }
     drawSholat_S(sNum, c);
-
     Disp.drawFilledRect(c,0,c+DrawWd/2-x,15,0);
     Disp.drawFilledRect(DrawWd/2+x+c,0,63,15,0);
+    
+    if(Dtk % 2 and stateI==true)
+    {
+     Disp.drawRect(15,3,16,5,1);                           
+     Disp.drawRect(15,10,16,12,1);
+    }
+    else
+    {
+      Disp.drawRect(15,3,16,5,0);                           
+      Disp.drawRect(15,10,16,12,0);
+    }
+    sprintf(BuffJ,"%02d",now.hour());
+    sprintf(BuffM,"%02d",now.minute());
+  //  sprintf(BuffD,"%02d",now.second());
+    fType(3);
+    Disp.drawText(0,x1,BuffJ);  //tampilkan jam
+     Disp.drawText(19,x1,BuffM);  //tampilkan menit
+    
   }
 
 void drawGreg_DS(uint16_t y)   //Draw Date
@@ -186,8 +223,11 @@ void drawSmallTS(int x) //jam kecil  ketika sholat
 void drawGreg_TS(uint16_t y)   // Draw Time
   {
     char  Buff[20];
+    int Dtk = now.second();
+    if(Dtk % 2){ sprintf(Buff,"%02d:%02d",now.hour(),now.minute()); }
+    else        { sprintf(Buff,"%02d %02d",now.hour(),now.minute()); }
     //sprintf(Buff,"%02d:%02d:%02d",now.hour(),now.minute(),now.second());
-    sprintf(Buff,"%02d:%02d",now.hour(),now.minute());
+    
     dwCtr(0,y,Buff);
     DoSwap = true; 
   }
@@ -278,7 +318,7 @@ void dwMrq(const char* msg, int Speed, int dDT, int DrawAdd) //running teks ada 
     static uint16_t   x; 
     if(!dwDo(DrawAdd)) return;
     if (reset_x !=0) { x=0;reset_x = 0;}      
-
+    
        
     static uint16_t   lsRn;
     int fullScroll = Disp.textWidth(msg) + DWidth;    
@@ -295,7 +335,7 @@ void dwMrq(const char* msg, int Speed, int dDT, int DrawAdd) //running teks ada 
         fType(1);
         if (x<=6)                     { drawGreg_TS(16-x);}
         else if (x>=(fullScroll-6))   { drawGreg_TS(16-(fullScroll-x));}
-        else                          { 
+        else                          {
           //Disp.drawRect(1,8,30,8);//garis tengah
                                         drawGreg_TS(9);}//posisi jamnya yang bawah
         }
@@ -332,8 +372,8 @@ void blinkBlock(int DrawAdd)
     int               mnt, scd;//
     char              locBuff[6];//
 
-    if(jumat)       {ct_l = Prm.JM * 60;}
-    else            {ct_l = Prm.SO * 60;}
+    if(jumat)       {ct_l = 20; }//Prm.JM * 60;}
+    else            {ct_l = 20; }//Prm.SO * 60;}
     jumat =false;
      
     if((Tmr-lsRn)> 900)
@@ -400,7 +440,7 @@ void dwCtr(int x, int y,const char* Msg)
 
 void Buzzer(uint8_t state)
   {
-    if(state ==1 and Prm.BZ == 1)
+    if(state ==1 ) //dapat dikasih kondisi jika diwaktu tertentu buzzer tidak aktif
       {tone(BUZZ, 500, 400);}
     else 
       {noTone(BUZZ);}
@@ -439,4 +479,3 @@ void fType(int x)
   }
   return (ht + hs + kab); 
 }
-

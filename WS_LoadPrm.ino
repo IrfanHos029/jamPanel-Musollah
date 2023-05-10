@@ -37,7 +37,7 @@
  *        SRAM   2k bytes
  *        EEPROM 1k byte
  */
-
+/*
 void serialEvent()
   { 
     int prm_idx = 0;
@@ -156,7 +156,7 @@ void LoadPrm()
           Clock.setDoW(byte(BT_Param.substring(15,16).toInt()));
  
       }
-  // Get New/updeted parameter*/
+  // Get New/updeted parameter*/ /*
 
   GetPrm();
   }
@@ -188,9 +188,9 @@ void GetPrm()
 void set_default_prm()
       {
         // Put Parameter start form addr 500
-        Prm = (struct_param){212,-6.39524,106.80256,45,7,1,20,2,10,30,15,10,10,7,10,1,1,1,1};
+        Prm = (struct_param){212,-7.238816115709593,112.75318149040366,45,7,1,20,2,10,30,15,10,10,7,10,1,1,1,1};
         EEPROM.put(0,Prm);
-        EEPROM.put(55, "Mujahid 212\0");
+        EEPROM.put(55, "IRFAN.A\0");
         EEPROM.put(130, "Info 1\0");
         EEPROM.put(280,"Info 2\0");
         EEPROM.put(430,"Info 3\0");
@@ -217,7 +217,7 @@ void set_default_time()
 void SendPrm()
   {
    // char Info1[150];
-   /* Serial.println(sizeof(Prm));
+    /*Serial.println(sizeof(Prm));
     Serial.print("state\t");  Serial.println(Prm.state);
     Serial.print("L_LA\t"); Serial.println(Prm.L_LA);
     Serial.print("L_LO\t"); Serial.println(Prm.L_LO);
@@ -269,5 +269,5 @@ void SendPrm()
     Serial.print(drawInfo(280));Serial.print("\n");
     Serial.print(drawInfo(430));Serial.print("\n");
     Serial.print(F("=== end of parameters ==="));
-    */
-  }
+    
+  }*/

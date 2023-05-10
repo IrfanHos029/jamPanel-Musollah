@@ -99,6 +99,7 @@ int         RunFinish = 0 ;
 float latitude = -7.238816115709593;
 float longitude = 112.75318149040366;
 float timezone = +7;
+char Hari[7][12] = {"MINGGU","SENIN","SELASA","RABU","KAMIS","JUM'AT","SABTU"};
 //=======================================
 //===SETUP=============================== 
 //=======================================
@@ -110,8 +111,10 @@ void setup()
          
     // Get Saved Parameter from EEPROM   
     updateTime();
-    GetPrm();
-    //SendPrm();
+//    GetPrm();
+    // SendPrm();
+//    Clock.setHour(21);
+//    Clock.setMinute(5);
 
     //init P10 Led Disp & Salam
     Disp_init();
@@ -123,7 +126,7 @@ void setup()
 void loop()
   { 
     // Reset & Init Display State
-    updateTime();   //every time
+    update_All_data();   //every time
     check_azzan();  //check Sholah Time for Azzan
     DoSwap  = false ;
     fType(1);  
@@ -138,17 +141,16 @@ void loop()
     // =========================================
     // List of Display Component Block =========
     // =========================================
-
     anim_JG(1);                                                 // addr: 1 show date time
     dwMrq(drawMasjidName(),75,2,2);                             // addr: 2 show Masjid Name
     dwMrq(drawDayDate()   ,75,1,3);                             // addr: 3 show Hijriah date
-    dwMrq(msgPuasa(hd_puasa,ty_puasa),75,0,4);                  // addr: 5 show Remander Puasa
+   // dwMrq(msgPuasa(hd_puasa,ty_puasa),75,0,4);                  // addr: 5 show Remander Puasa
     drawSholat(5);                                              // addr: 5 show sholat time
     dwMrq(drawInfo(130)    ,75,1,6);                             // addr: 6 show Info 1
-   // anim_DT(7);                                                 // addr: 7 show date time    
-    dwMrq(drawInfo(280)   ,75,2,8);                             // addr: 8 show Info 2
-    drawSholat(9);                                              // addr: 9 show sholat time
-    dwMrq(drawInfo(430)   ,75,1,10);                            // addr: 10 show Info 3
+//   // anim_DT(7);                                                 // addr: 7 show date time    
+//    dwMrq(drawInfo(280)   ,75,2,8);                             // addr: 8 show Info 2
+//    drawSholat(9);                                              // addr: 9 show sholat time
+//    dwMrq(drawInfo(430)   ,75,1,10);                            // addr: 10 show Info 3
 
 
     drawAzzan(100);                                             // addr: 100 show Azzan
@@ -163,18 +165,18 @@ void loop()
     if(RunFinish==1) {RunSel = 2; RunFinish =0;}                      //after anim 1 set anim 2
     if(RunFinish==2) {RunSel = 3; RunFinish =0;}                      //after anim 2 set anim 3
 //  if(RunFinish==3) {RunSel = 3; RunFinish =0;}
-   // if(RunFinish==3)                                                  //after anim 3 set anim 5 or anim 4 if puasa
-       //  {
-         // if (ty_puasa!=0)  {RunSel = 4; RunFinish =0;}
-         // else {RunSel = 5; RunFinish =0;}
-       //  }
+//    if(RunFinish==3)                                                  //after anim 3 set anim 5 or anim 4 if puasa
+//         {
+//          if (ty_puasa!=0)  {RunSel = 4; RunFinish =0;}
+//          else {RunSel = 5; RunFinish =0;}
+//         }
     if(RunFinish==3)  {RunSel = 5;  RunFinish =0;}                      //after anim 4 set anim 5
     if(RunFinish==5)  {RunSel = 6;  RunFinish =0;}                      //after anim 5 set anim 6
-    if(RunFinish==6)  {RunSel = 8;  RunFinish =0;}                      //after anim 6 set anim 7
+    if(RunFinish==6)  {RunSel = 1;  RunFinish =0;}                      //after anim 6 set anim 7
   //  if(RunFinish==7)  {RunSel = 8;  RunFinish =0;}                      //after anim 7 set anim 8
-    if(RunFinish==8)  {RunSel = 9;  RunFinish =0;}                      //after anim 8 set anim 9
-    if(RunFinish==9)  {RunSel = 10; RunFinish =0;}                      //after anim 9 set anim 10
-    if(RunFinish==10) {RunSel = 1;  RunFinish =0;}                      //after anim 10 set anim 1
+//    if(RunFinish==8)  {RunSel = 9;  RunFinish =0;}                      //after anim 8 set anim 9
+//    if(RunFinish==9)  {RunSel = 10; RunFinish =0;}                      //after anim 9 set anim 10
+//    if(RunFinish==10) {RunSel = 1;  RunFinish =0;}                      //after anim 10 set anim 1
     
     
     if(RunFinish==100 and jumat )     {RunSel = 103; RunFinish = 0; reset_x = 1;}  //after Azzan Jumat (anim 100)
@@ -199,7 +201,7 @@ void Disp_init()
   { Disp.setDoubleBuffer(true);
     Timer1.initialize(2000);
     Timer1.attachInterrupt(scan);
-    setBrightness(int(Prm.BL));
+    setBrightness(150);
     fType(1);  
     Disp.clear();
     Disp.swapBuffers();
@@ -238,12 +240,13 @@ void update_All_data()
   uint8_t   date_cor = 0;
   updateTime();
   sholatCal();                                                // load Sholah Time
-  check_puasa();                                              // check jadwal Puasa Besok
+//  check_puasa();                                              // check jadwal Puasa Besok
   if(floatnow>sholatT[6]) {date_cor = 1;}                     // load Hijr Date + corection next day after Mhagrib 
   nowH = toHijri(now.year(),now.month(),now.day(),date_cor);  // load Hijir Date
   
   if ((floatnow > (float)21) or (floatnow < (float)3.5) )    {setBrightness(15);}
-      else                                                   {setBrightness(Prm.BL);}  
+      else                                                   {setBrightness(150);}  
+     /////// Serial.println((float)3.5);
   }
   
     

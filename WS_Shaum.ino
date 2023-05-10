@@ -1,4 +1,4 @@
-void check_puasa()
+/*void check_puasa()
   {
     // hitung tanggal besok
     hijir_date tmrH = toHijri(now.year(),now.month(),now.day(),1); 
@@ -68,4 +68,4 @@ void check_puasa()
             }
         }
   }
-
+*/

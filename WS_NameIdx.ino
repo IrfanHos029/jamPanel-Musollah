@@ -106,9 +106,8 @@ char* sholatN(int number) // get sholat name from EEPROM
 
 char * DayName(int number)  // get Day Name from EEPROM
     {
-      static char  locBuff[7];
-      int locLen = (number-1)*7;
-      memccpy_P(locBuff,DayName_E+locLen  ,0,7);
+      static char  locBuff[10];
+      sprintf(locBuff,"%s ",Hari[daynow-1]); 
       return locBuff;
     }
 
@@ -123,7 +122,7 @@ char * MonthName(int number)  // get  Month Name from EEPROM
 char * drawDayDate()
   {
       char  locBuff[20];
-      static char  out[45];
+      static char  out[100];
       int   locLen = (nowH.hM-1)*11;
       memccpy_P(locBuff,h_month_E+locLen,0,11);
       sprintf(out,"%s %s,%02d-%02d-%04d   %02d %s %dH\0",DayName(daynow),pasar[jumlahhari()%5],now.day(),now.month(),now.year(),nowH.hD,locBuff,nowH.hY);
@@ -132,12 +131,12 @@ char * drawDayDate()
 
 char *  drawMasjidName()
   {
-      char  bufMN[75];
+      char  bufMN[75] = "nama masjid";
       static char  out[85];
       char  locBuff[10];
       int   locLen = (Prm.MT-1)*10;
       memccpy_P(locBuff,MT_Name_E+locLen  ,0,10);
-      EEPROM.get(55,bufMN);
+      //EEPROM.get(55,bufMN);
       sprintf(out,"%s %s\0",locBuff,bufMN);
       return out;
   }
@@ -148,6 +147,3 @@ char *  drawInfo(int addr)
       EEPROM.get(addr,out);
       return out;
   }
-
-
-
