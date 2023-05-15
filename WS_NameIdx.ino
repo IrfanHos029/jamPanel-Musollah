@@ -147,3 +147,11 @@ char *  drawInfo(int addr)
       EEPROM.get(addr,out);
       return out;
   }
+
+char * drawCounterBack()
+{
+static char out[50];
+static char text[] = "Menuju sholat";     
+sprintf(out,"%s %s",text,sholatt[cekNext]);
+return out;
+}

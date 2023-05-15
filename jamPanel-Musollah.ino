@@ -100,6 +100,7 @@ float latitude = -7.238816115709593;
 float longitude = 112.75318149040366;
 float timezone = +7;
 char Hari[7][12] = {"MINGGU","SENIN","SELASA","RABU","KAMIS","JUM'AT","SABTU"};
+char *sholatt[] = {"IMMAK","SHUBUH","TERBIT","DHUHA","DHUHUR","ASHAR","MAGHRIB","ISYA"};
 //=======================================
 //===SETUP=============================== 
 //=======================================
@@ -132,11 +133,10 @@ void loop()
     fType(1);  
     Disp.clear();
     
-    
+   // Serial.println(String() + "sholatNow:" + SholatNow);
     // Timer Function every 10 Minutes
     // Up All function with Timer in this fuction
   //  Timer_Minute(1);
-
 
     // =========================================
     // List of Display Component Block =========
@@ -151,14 +151,14 @@ void loop()
 //    dwMrq(drawInfo(280)   ,75,2,8);                             // addr: 8 show Info 2
 //    drawSholat(9);                                              // addr: 9 show sholat time
 //    dwMrq(drawInfo(430)   ,75,1,10);                            // addr: 10 show Info 3
-
-
+dwMrq(drawCounterBack(),60,3,7);
+   //cekSelisihSholat(1);
     drawAzzan(100);                                             // addr: 100 show Azzan
     drawIqomah(101);                                            // addr: 101 show Iqomah
     dwMrq(drawInfo(580),50,0,102); //Message Sholat biasa       // addr: 202 show Message Sholah
     dwMrq(drawInfo(730),50,0,103); //Message Sholat jumat       // addr: 203 show Message Jum'at
     blinkBlock(104);                                            // addr: 104 show Blink  Sholat    
-
+    
     // =========================================
     // Display Control Block ===================
     // =========================================
@@ -172,8 +172,8 @@ void loop()
 //         }
     if(RunFinish==3)  {RunSel = 5;  RunFinish =0;}                      //after anim 4 set anim 5
     if(RunFinish==5)  {RunSel = 6;  RunFinish =0;}                      //after anim 5 set anim 6
-    if(RunFinish==6)  {RunSel = 1;  RunFinish =0;}                      //after anim 6 set anim 7
-  //  if(RunFinish==7)  {RunSel = 8;  RunFinish =0;}                      //after anim 7 set anim 8
+    if(RunFinish==6)  {RunSel = 7;  RunFinish =0;}                      //after anim 6 set anim 7
+    if(RunFinish==7)  {RunSel = 1;  RunFinish =0;}                      //after anim 7 set anim 8
 //    if(RunFinish==8)  {RunSel = 9;  RunFinish =0;}                      //after anim 8 set anim 9
 //    if(RunFinish==9)  {RunSel = 10; RunFinish =0;}                      //after anim 9 set anim 10
 //    if(RunFinish==10) {RunSel = 1;  RunFinish =0;}                      //after anim 10 set anim 1

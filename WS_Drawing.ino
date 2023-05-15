@@ -101,6 +101,8 @@ uint16_t y;
     uint8_t sminute = floor((stime-(float)shour)*60);
     uint8_t ssecond = floor((stime-(float)shour-(float)sminute/60)*3600);
     sprintf(BuffTime,"%02d:%02d",shour,sminute);
+//    Serial.println(String() + "shour:" + shour);
+//    Serial.println(String() + "sminute:" + sminute);
    // Disp.drawRect(c+1,2,62,13);
     fType(1); dwCtr(33,0,sholatN(sNum)); //tulisan waktu sholat
     fType(1); dwCtr(33,9,BuffTime);   //jadwal sholatnya
@@ -195,6 +197,86 @@ void drawSholat(int DrawAdd)
      Disp.drawText(19,x1,BuffM);  //tampilkan menit
     
   }
+
+bool stateCekCon=false;
+int cekNext; 
+ float value;
+void cekSelisihSholat(int y)
+{
+ //if(!dwDo(DrawAdd)) return;
+ int i = SholatNow;
+ 
+            switch(i){
+     case 1 :
+        cekNext = 4;
+         stateCekCon=false;
+     break;
+     case 4 :
+        cekNext = 5;
+        stateCekCon=false;
+     break;
+     case 5 :
+        cekNext = 6;
+        stateCekCon=false;
+     break;
+     case 6 :
+        cekNext = 7;
+        stateCekCon=false;
+     break;
+     case 7 :
+        cekNext = 1;
+        stateCekCon=true;
+     break;
+ };
+
+ float testOut = 0.52 ;
+ float cek1,cek2,cek3;
+     if(stateCekCon)
+     {
+       if(floatnow >= sholatT[7] && floatnow <= 23.59)
+       {
+         Serial.println("active");
+         cek1 = floatnow - 12.00;
+         cek2 = 12.00 - cek1;
+         value = cek2 + sholatT[cekNext];
+         value = value +  0.01;
+        }
+        else{ value = sholatT[cekNext] - floatnow;  value = value = value + 0.01;  }
+     }
+
+     else
+     {
+      value = sholatT[cekNext] - floatnow;  value = value = value + 0.01;
+     }
+            
+
+//            Serial.println(String() + "value:" + value);
+//            Serial.println(String() + "testOut:" + testOut);
+//            Serial.println(String() + "floatnow:" + floatnow);
+//            Serial.println(String() + "i:" + i);
+//            Serial.println(String() + "stateCekCon:" + stateCekCon);
+ 
+ 
+      
+    char text[] = "Menuju waktu sholat";
+    char  BuffTime[20];
+    char  BuffShol[50];
+    float   stime   = value;
+    uint8_t shour   = floor(stime);
+    uint8_t sminute = floor((stime-(float)shour)*60);
+    uint8_t ssecond = floor((stime-(float)shour-(float)sminute/60)*3600);
+    sprintf(BuffTime,"%s%02d:%02d:%02d","-",shour,sminute,ssecond);
+    sprintf(BuffShol,"%s %s",text,sholatN(cekNext));
+//    Serial.println(String() + "sholatT[i]:" + sholatT[i]);
+//    Serial.println(String() + "sholatT[cekNext]:" + sholatT[cekNext]);
+   // Disp.drawRect(c+1,2,62,13);
+   //  fType(1); dwCtr(0,0,sholatN(cekNext)); //tulisan waktu sholat
+    fType(1); dwCtr(0,y,BuffTime);   //jadwal sholatnya
+    DoSwap = true;           
+}
+
+
+
 
 void drawGreg_DS(uint16_t y)   //Draw Date
   { 
@@ -347,6 +429,17 @@ void dwMrq(const char* msg, int Speed, int dDT, int DrawAdd) //running teks ada 
         else                          { 
           //Disp.drawRect(1,7,30,7);//garis tengah
                                         drawGreg_TS(0);}  //posisi jam nya yang diatas
+        fType(1); //Marquee  running teks dibawah
+        Disp.drawText(DWidth - x, 9 , msg);//runinng teks dibawah
+        }
+      else if(dDT==3) //jam yang diatas
+        {    
+        fType(1);
+        if (x<=6)                     { cekSelisihSholat(x-6);}
+        else if (x>=(fullScroll-6))   { cekSelisihSholat((fullScroll-x)-6);}
+        else                          { 
+          //Disp.drawRect(1,7,30,7);//garis tengah
+                                        cekSelisihSholat(0);}  //posisi jam nya yang diatas
         fType(1); //Marquee  running teks dibawah
         Disp.drawText(DWidth - x, 9 , msg);//runinng teks dibawah
         }

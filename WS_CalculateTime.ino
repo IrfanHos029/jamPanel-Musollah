@@ -11,10 +11,11 @@
 // Main Function
 void sholatCal()
   {
-    float EJD = E_Julian_date(now.year(),now.month(),now.day(),Prm.L_LO);
+    float EJD = E_Julian_date(now.year(),now.month(),now.day(),longitude);
     float Decl=Dql(EJD);
     float EqOfTime=EqT(EJD);
-    Pray_Time(Prm.L_TZ, Prm.L_LA, Prm.L_LO,Prm.L_AL,Decl, EqOfTime );
+    //Pray_Time(Prm.L_TZ, Prm.L_LA, Prm.L_LO,Prm.L_AL,Decl, EqOfTime );
+    Pray_Time(timezone, latitude, longitude,Prm.L_AL,Decl, EqOfTime );
   }
 
 //Julian Date at GMT mid day
@@ -69,9 +70,9 @@ float Dql(float EJD)
 float HourAngle( float Alfa, float Declination, float Latitude)
   {
      float rn =acos(
-                      (-sin(d2r(Alfa))-sin(d2r(Latitude))*sin(d2r(Declination)))
+                      (-sin(d2r(Alfa))-sin(d2r(latitude))*sin(d2r(Declination)))
                       /
-                      (cos(d2r(Latitude))*cos(d2r(Declination)))
+                      (cos(d2r(latitude))*cos(d2r(Declination)))
                      )/15;
      return r2d(rn);
   }
