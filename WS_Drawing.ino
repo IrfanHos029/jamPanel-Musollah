@@ -59,7 +59,7 @@ void drawIqomah(int DrawAdd)  // Countdown Iqomah (9 menit)
           dwCtr(0,-1,"IQOMAH");}          
           fType(0);
           dwCtr(0,8,locBuff);
-          if (ct> (cn_l-10)) Buzzer(1);   // Buzzer on 2 seccon before Iqomah
+            //if (ct> (cn_l-10)) Buzzer(1);   // Buzzer on 2 seccon before Iqomah
           ct++;
           DoSwap = true;
              
@@ -162,11 +162,11 @@ void drawSholat(int DrawAdd)
         s=0;
       }
     
-    if(Prm.SI==0) {first_sNum =1;}
-    else {first_sNum =0;}
-    if(Prm.SI==0 and sNum == 0) {sNum=1;}
-    if(Prm.ST==0 and sNum == 2) {sNum=3;}
-    if(Prm.SU==0 and sNum == 3) {sNum=4;}
+//    if(Prm.SI==0) {first_sNum =1;}
+//    else {first_sNum =0;}
+//    if(Prm.SI==0 and sNum == 0) {sNum=1;}
+//    if(Prm.ST==0 and sNum == 2) {sNum=3;}
+//    if(Prm.SU==0 and sNum == 3) {sNum=4;}
 
  
     if(  (((sNum == first_sNum) and s ==0) or 
@@ -446,9 +446,9 @@ void dwMrq(const char* msg, int Speed, int dDT, int DrawAdd) //running teks ada 
      else
         {
         fType(1);
-    //    Disp.drawLine(1,2,62,2);  nampilkan garis
-     //   Disp.drawLine(1,13,62,13); //nampilkan garis
-     //   Disp.drawText(DWidth - x, 4, msg);
+        Disp.drawLine(1,2,62,2);  //nampilkan garis
+        Disp.drawLine(1,13,62,13); //nampilkan garis
+        Disp.drawText(DWidth - x, 4, msg);
         }
         DoSwap = true; 
       }          

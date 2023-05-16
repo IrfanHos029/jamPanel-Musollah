@@ -141,17 +141,17 @@ char *  drawMasjidName()
       return out;
   }
  
-char *  drawInfo(int addr)
+char *  drawInfo()
   {
-      static char  out[150];
-      EEPROM.get(addr,out);
+      static char  out[150] = "luruskan dan rapatkan shaf sholat";
+      //EEPROM.get(addr,out);
       return out;
   }
 
 char * drawCounterBack()
 {
 static char out[50];
-static char text[] = "Menuju sholat";     
+static char text[] = "menuju waktu";     
 sprintf(out,"%s %s",text,sholatt[cekNext]);
 return out;
 }

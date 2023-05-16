@@ -142,21 +142,21 @@ void loop()
     // List of Display Component Block =========
     // =========================================
     anim_JG(1);                                                 // addr: 1 show date time
-    dwMrq(drawMasjidName(),75,2,2);                             // addr: 2 show Masjid Name
-    dwMrq(drawDayDate()   ,75,1,3);                             // addr: 3 show Hijriah date
+    dwMrq(drawMasjidName(),70,2,2);                             // addr: 2 show Masjid Name
+    dwMrq(drawDayDate()   ,70,1,3);                             // addr: 3 show Hijriah date
    // dwMrq(msgPuasa(hd_puasa,ty_puasa),75,0,4);                  // addr: 5 show Remander Puasa
     drawSholat(5);                                              // addr: 5 show sholat time
-    dwMrq(drawInfo(130)    ,75,1,6);                             // addr: 6 show Info 1
+    dwMrq(drawInfo()    ,70,1,6);                             // addr: 6 show Info 1
 //   // anim_DT(7);                                                 // addr: 7 show date time    
 //    dwMrq(drawInfo(280)   ,75,2,8);                             // addr: 8 show Info 2
 //    drawSholat(9);                                              // addr: 9 show sholat time
 //    dwMrq(drawInfo(430)   ,75,1,10);                            // addr: 10 show Info 3
-dwMrq(drawCounterBack(),60,3,7);
-   //cekSelisihSholat(1);
+    dwMrq(drawCounterBack(),60,3,7);
+ 
     drawAzzan(100);                                             // addr: 100 show Azzan
     drawIqomah(101);                                            // addr: 101 show Iqomah
-    dwMrq(drawInfo(580),50,0,102); //Message Sholat biasa       // addr: 202 show Message Sholah
-    dwMrq(drawInfo(730),50,0,103); //Message Sholat jumat       // addr: 203 show Message Jum'at
+//    dwMrq(drawInfo(580),50,0,102); //Message Sholat biasa       // addr: 202 show Message Sholah
+//    dwMrq(drawInfo(730),50,0,103); //Message Sholat jumat       // addr: 203 show Message Jum'at
     blinkBlock(104);                                            // addr: 104 show Blink  Sholat    
     
     // =========================================
@@ -179,10 +179,10 @@ dwMrq(drawCounterBack(),60,3,7);
 //    if(RunFinish==10) {RunSel = 1;  RunFinish =0;}                      //after anim 10 set anim 1
     
     
-    if(RunFinish==100 and jumat )     {RunSel = 103; RunFinish = 0; reset_x = 1;}  //after Azzan Jumat (anim 100)
+    if(RunFinish==100 and jumat )     {RunSel = 104; RunFinish = 0; reset_x = 1;}  //after Azzan Jumat (anim 100)
     else if(RunFinish==100)           {RunSel = 101; RunFinish =0;}               //after Azzan Sholah (Iqomah)
         
-    if(RunFinish==101) {RunSel = 102; RunFinish =0; reset_x=1;}       //after Iqomah(anim 101) set Message Sholah (anim 102)   
+    if(RunFinish==101) {RunSel = 104; RunFinish =0; reset_x=1;}       //after Iqomah(anim 101) set Message Sholah (anim 102)   
     if(RunFinish==102) {RunSel = 104; RunFinish =0;}                  //after Message Sholah (anim 102) set Blink Sholah(anim 104) 
     if(RunFinish==103) {RunSel = 104; RunFinish =0;}                  //after Messagw Jum'at (anim 103) set Blink Sholah(anim 104)
     if(RunFinish==104) {RunSel = 1; RunFinish =0;}                    //after Blink Sholah back to anim 1 
@@ -193,7 +193,7 @@ dwMrq(drawCounterBack(),60,3,7);
     if(DoSwap){Disp.swapBuffers();} // Swap Buffer if Change
   }
 
-
+         
 // =========================================
 // DMD3 P10 utility Function================
 // =========================================
@@ -244,7 +244,7 @@ void update_All_data()
   if(floatnow>sholatT[6]) {date_cor = 1;}                     // load Hijr Date + corection next day after Mhagrib 
   nowH = toHijri(now.year(),now.month(),now.day(),date_cor);  // load Hijir Date
   
-  if ((floatnow > (float)21) or (floatnow < (float)3.5) )    {setBrightness(15);}
+  if ((floatnow > (float)21.00) or (floatnow < (float)3.30) )    {setBrightness(15);}
       else                                                   {setBrightness(150);}  
      /////// Serial.println((float)3.5);
   }
