@@ -87,18 +87,19 @@ uint8_t         reset_x    = 0;
 
 //Other Variable
 float sholatT[8]  = {0,0,0,0,0,0,0,0};
-uint8_t Iqomah[8] = {0,0,0,0,0,0,0,0};
+uint8_t Iqomah[8] = {0,3,0,0,2,2,1,2};
 
 //Blue tooth Pram Receive
 char        CH_Prm[155];
 int         DWidth  = Disp.width();
 int         DHeight = Disp.height();
 boolean     DoSwap;
-int         RunSel    = 1; //
+int         RunSel    = 101; //
 int         RunFinish = 0 ;
-float latitude = -7.238816115709593;
-float longitude = 112.75318149040366;
-float timezone = +7;
+float latitude = -7.364;
+float longitude = 112.646;
+float timezone = +07.00;
+float ketinggian = 0;
 char Hari[7][12] = {"MINGGU","SENIN","SELASA","RABU","KAMIS","JUM'AT","SABTU"};
 char *sholatt[] = {"IMMAK","SHUBUH","TERBIT","DHUHA","DHUHUR","ASHAR","MAGHRIB","ISYA"};
 //=======================================
@@ -141,11 +142,11 @@ void loop()
     // =========================================
     // List of Display Component Block =========
     // =========================================
-    anim_JG(1);                                                 // addr: 1 show date time
+    anim_JG(11);                                                 // addr: 1 show date time
     dwMrq(drawMasjidName(),70,2,2);                             // addr: 2 show Masjid Name
     dwMrq(drawDayDate()   ,70,1,3);                             // addr: 3 show Hijriah date
    // dwMrq(msgPuasa(hd_puasa,ty_puasa),75,0,4);                  // addr: 5 show Remander Puasa
-    drawSholat(5);                                              // addr: 5 show sholat time
+    drawSholat(1);                                              // addr: 5 show sholat time
     dwMrq(drawInfo()    ,70,1,6);                             // addr: 6 show Info 1
 //   // anim_DT(7);                                                 // addr: 7 show date time    
 //    dwMrq(drawInfo(280)   ,75,2,8);                             // addr: 8 show Info 2
@@ -162,7 +163,7 @@ void loop()
     // =========================================
     // Display Control Block ===================
     // =========================================
-    if(RunFinish==1) {RunSel = 2; RunFinish =0;}                      //after anim 1 set anim 2
+    if(RunFinish==1) {RunSel = 1; RunFinish =0;}                      //after anim 1 set anim 2
     if(RunFinish==2) {RunSel = 3; RunFinish =0;}                      //after anim 2 set anim 3
 //  if(RunFinish==3) {RunSel = 3; RunFinish =0;}
 //    if(RunFinish==3)                                                  //after anim 3 set anim 5 or anim 4 if puasa

@@ -15,7 +15,8 @@ void sholatCal()
     float Decl=Dql(EJD);
     float EqOfTime=EqT(EJD);
     //Pray_Time(Prm.L_TZ, Prm.L_LA, Prm.L_LO,Prm.L_AL,Decl, EqOfTime );
-    Pray_Time(timezone, latitude, longitude,Prm.L_AL,Decl, EqOfTime );
+    Pray_Time(timezone, latitude, longitude,ketinggian,Decl, EqOfTime );
+   // Serial.println(String() + "L_AL:" + Prm.L_AL);
   }
 
 //Julian Date at GMT mid day

@@ -45,7 +45,10 @@ void drawIqomah(int DrawAdd)  // Countdown Iqomah (9 menit)
     int               mnt, scd,cn_l ;
     char              locBuff[6];           
     
-    cn_l  = 59; //(Iqomah[SholatNow]*60);
+    cn_l  = (Iqomah[SholatNow]*60);
+    Serial.println(String() + "Iqomah:" + Iqomah[SholatNow]*60);
+     Serial.println(String() + "SholatNow:" + SholatNow);
+    
     //Disp.drawRect(1,2,62,13);
     if((Tmr-lsRn) > 1000 and ct <=cn_l)
       {
