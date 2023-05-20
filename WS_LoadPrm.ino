@@ -37,7 +37,7 @@
  *        SRAM   2k bytes
  *        EEPROM 1k byte
  */
-/*
+
 void serialEvent()
   { 
     int prm_idx = 0;
@@ -60,7 +60,7 @@ void serialEvent()
             }
           }
         CH_Prm[prm_idx-1]='\0';
-        LoadPrm();
+      //LoadPrm();
     
        Serial.print(bchar);
       }
@@ -69,7 +69,7 @@ void serialEvent()
         while(Serial.available()) {Serial.read();}
       }
   }
-  
+  /*
 void LoadPrm()
   { 
     String BT_Param;
@@ -156,10 +156,11 @@ void LoadPrm()
           Clock.setDoW(byte(BT_Param.substring(15,16).toInt()));
  
       }
-  // Get New/updeted parameter*/ /*
+  // Get New/updeted parameter
 
-  GetPrm();
+// GetPrm();
   }
+  
   
 void GetPrm()
   {
@@ -188,7 +189,7 @@ void GetPrm()
 void set_default_prm()
       {
         // Put Parameter start form addr 500
-        Prm = (struct_param){212,-7.238816115709593,112.75318149040366,45,7,1,20,2,10,30,15,10,10,7,10,1,1,1,1};
+        Prm = (struct_param){212,latitude,longitude,ketinggian,7,1,20,2,10,30,15,10,10,7,10,1,1,1,1};
         EEPROM.put(0,Prm);
         EEPROM.put(55, "IRFAN.A\0");
         EEPROM.put(130, "Info 1\0");
@@ -196,7 +197,7 @@ void set_default_prm()
         EEPROM.put(430,"Info 3\0");
         EEPROM.put(580,"Lurus dan rapatkan Shaf sebelum Sholat ...\0");
         EEPROM.put(730,"Harap Tenang dan Matikan HP Anda\0");
-
+        Serial.println("set default done");
       }
 
 void set_default_time()
@@ -217,7 +218,7 @@ void set_default_time()
 void SendPrm()
   {
    // char Info1[150];
-    /*Serial.println(sizeof(Prm));
+    Serial.println(sizeof(Prm));
     Serial.print("state\t");  Serial.println(Prm.state);
     Serial.print("L_LA\t"); Serial.println(Prm.L_LA);
     Serial.print("L_LO\t"); Serial.println(Prm.L_LO);
@@ -265,9 +266,9 @@ void SendPrm()
     Serial.print(F("NIA  : ")); Serial.print(Prm.IA);Serial.print("\n");
     Serial.print(F("NIM  : ")); Serial.print(Prm.IM);Serial.print("\n");
         
-    Serial.print(drawInfo(130));Serial.print("\n");
-    Serial.print(drawInfo(280));Serial.print("\n");
-    Serial.print(drawInfo(430));Serial.print("\n");
+//    Serial.print(drawInfo(130));Serial.print("\n");
+//    Serial.print(drawInfo(280));Serial.print("\n");
+//    Serial.print(drawInfo(430));Serial.print("\n");
     Serial.print(F("=== end of parameters ==="));
     
   }*/

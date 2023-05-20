@@ -16,7 +16,7 @@ void sholatCal()
     float EqOfTime=EqT(EJD);
     //Pray_Time(Prm.L_TZ, Prm.L_LA, Prm.L_LO,Prm.L_AL,Decl, EqOfTime );
     Pray_Time(timezone, latitude, longitude,ketinggian,Decl, EqOfTime );
-   // Serial.println(String() + "L_AL:" + Prm.L_AL);
+    //Serial.println(String() + "EqOfTime:" + EqOfTime);
   }
 
 //Julian Date at GMT mid day
@@ -68,18 +68,22 @@ float Dql(float EJD)
     return dd;
   }
 
+  
 float HourAngle( float Alfa, float Declination, float Latitude)
   {
      float rn =acos(
-                      (-sin(d2r(Alfa))-sin(d2r(latitude))*sin(d2r(Declination)))
+                      (-sin(d2r(Alfa))-sin(d2r(Latitude))*sin(d2r(Declination)))
                       /
-                      (cos(d2r(latitude))*cos(d2r(Declination)))
+                      (cos(d2r(Latitude))*cos(d2r(Declination)))
                      )/15;
      return r2d(rn);
   }
 
 void Pray_Time(float TimeZone, float Latitude, float Longitude,float Altitude,float Declination, float EquationOfTime )
   { 
+    Prm.IH = 2;
+     Prm.II = 2;
+     Prm.IS = 2;
     // Dzuhur
     float BaseTime = fix_hour((float)12+TimeZone-(Longitude/15)-EquationOfTime);
     sholatT[4] = BaseTime + (float)Prm.IH/60 + (float)Prm.IL/60;

@@ -87,19 +87,20 @@ uint8_t         reset_x    = 0;
 
 //Other Variable
 float sholatT[8]  = {0,0,0,0,0,0,0,0};
-uint8_t Iqomah[8] = {0,3,0,0,2,2,1,2};
+uint8_t Iqomah[8] = {0,3,0,0,3,3,3,3};
 
 //Blue tooth Pram Receive
 char        CH_Prm[155];
 int         DWidth  = Disp.width();
 int         DHeight = Disp.height();
 boolean     DoSwap;
-int         RunSel    = 101; //
+int         RunSel    = 1; //
 int         RunFinish = 0 ;
-float latitude = -7.364;
-float longitude = 112.646;
+//   -7.364057, 112.646222                                                 
+float latitude =  -7.364057;
+float longitude = 112.646222;
 float timezone = +07.00;
-float ketinggian = 0;
+float ketinggian = 10;
 char Hari[7][12] = {"MINGGU","SENIN","SELASA","RABU","KAMIS","JUM'AT","SABTU"};
 char *sholatt[] = {"IMMAK","SHUBUH","TERBIT","DHUHA","DHUHUR","ASHAR","MAGHRIB","ISYA"};
 //=======================================
@@ -114,7 +115,7 @@ void setup()
     // Get Saved Parameter from EEPROM   
     updateTime();
 //    GetPrm();
-    // SendPrm();
+//     SendPrm();
 //    Clock.setHour(21);
 //    Clock.setMinute(5);
 
@@ -142,28 +143,33 @@ void loop()
     // =========================================
     // List of Display Component Block =========
     // =========================================
-    anim_JG(11);                                                 // addr: 1 show date time
+    anim_JG(1);                                                 // addr: 1 show date time
     dwMrq(drawMasjidName(),70,2,2);                             // addr: 2 show Masjid Name
     dwMrq(drawDayDate()   ,70,1,3);                             // addr: 3 show Hijriah date
    // dwMrq(msgPuasa(hd_puasa,ty_puasa),75,0,4);                  // addr: 5 show Remander Puasa
-    drawSholat(1);                                              // addr: 5 show sholat time
+    drawSholat(5);                                              // addr: 5 show sholat time
     dwMrq(drawInfo()    ,70,1,6);                             // addr: 6 show Info 1
-//   // anim_DT(7);                                                 // addr: 7 show date time    
-//    dwMrq(drawInfo(280)   ,75,2,8);                             // addr: 8 show Info 2
-//    drawSholat(9);                                              // addr: 9 show sholat time
+   dwMrq(drawCounterBack(),60,3,7);
+    // anim_DT(7);                                                 // addr: 7 show date time    
+    //dwMrq(drawInfo(280)   ,75,2,8);                             // addr: 8 show Info 2
+  //  drawSholat(9);                                              // addr: 9 show sholat time
 //    dwMrq(drawInfo(430)   ,75,1,10);                            // addr: 10 show Info 3
-    dwMrq(drawCounterBack(),60,3,7);
+  
  
     drawAzzan(100);                                             // addr: 100 show Azzan
     drawIqomah(101);                                            // addr: 101 show Iqomah
 //    dwMrq(drawInfo(580),50,0,102); //Message Sholat biasa       // addr: 202 show Message Sholah
 //    dwMrq(drawInfo(730),50,0,103); //Message Sholat jumat       // addr: 203 show Message Jum'at
     blinkBlock(104);                                            // addr: 104 show Blink  Sholat    
-    
+//     Serial.println(String() + "Prm.IM:" + Prm.IM); 
+//     Serial.println(String() + "Prm.IH:" + Prm.IH);
+//     Serial.println(String() + "Prm.II:" + Prm.II);
+//     Serial.println(String() + "Prm.IS:" + Prm.IS);
+//        Serial.println(String() + "daynow:" + daynow);
     // =========================================
     // Display Control Block ===================
     // =========================================
-    if(RunFinish==1) {RunSel = 1; RunFinish =0;}                      //after anim 1 set anim 2
+    if(RunFinish==1) {RunSel = 2; RunFinish =0;}                      //after anim 1 set anim 2
     if(RunFinish==2) {RunSel = 3; RunFinish =0;}                      //after anim 2 set anim 3
 //  if(RunFinish==3) {RunSel = 3; RunFinish =0;}
 //    if(RunFinish==3)                                                  //after anim 3 set anim 5 or anim 4 if puasa
@@ -261,9 +267,9 @@ void check_azzan()
             if(floatnow >= sholatT[i])
               {
                 SholatNow = i;
-                if(!azzan and (floatnow > sholatT[i]) and (floatnow < (sholatT[i]+0.03))) 
+                if(!azzan and (floatnow > sholatT[i]) and (floatnow < (sholatT[i]+0.01))) 
                   { 
-                    if(daynow ==6 and SholatNow ==4 and Prm.MT==1) {jumat=true;}
+                    if(daynow ==   5 and SholatNow ==4) {jumat=true;}
                     azzan =true;
                     RunSel = 100;
                   }  

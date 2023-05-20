@@ -46,8 +46,8 @@ void drawIqomah(int DrawAdd)  // Countdown Iqomah (9 menit)
     char              locBuff[6];           
     
     cn_l  = (Iqomah[SholatNow]*60);
-    Serial.println(String() + "Iqomah:" + Iqomah[SholatNow]*60);
-     Serial.println(String() + "SholatNow:" + SholatNow);
+//    Serial.println(String() + "Iqomah:" + Iqomah[SholatNow]*60);
+//     Serial.println(String() + "SholatNow:" + SholatNow);
     
     //Disp.drawRect(1,2,62,13);
     if((Tmr-lsRn) > 1000 and ct <=cn_l)
@@ -261,7 +261,7 @@ void cekSelisihSholat(int y)
  
  
       
-    char text[] = "Menuju waktu sholat";
+    char text[] = "menuju waktu";
     char  BuffTime[20];
     char  BuffShol[50];
     float   stime   = value;

@@ -107,7 +107,7 @@ char* sholatN(int number) // get sholat name from EEPROM
 char * DayName(int number)  // get Day Name from EEPROM
     {
       static char  locBuff[10];
-      sprintf(locBuff,"%s ",Hari[daynow-1]); 
+      sprintf(locBuff,"%s ",Hari[daynow]); 
       return locBuff;
     }
 
@@ -150,7 +150,7 @@ char *  drawInfo()
 
 char * drawCounterBack()
 {
-static char out[50];
+static char out[30];
 static char text[] = "menuju waktu";     
 sprintf(out,"%s %s",text,sholatt[cekNext]);
 return out;
