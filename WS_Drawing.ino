@@ -130,7 +130,7 @@ void drawSholat(int DrawAdd)
     char  BuffM[6];
     int Dtk = now.second();
 
-    if((Tmr-lsRn1)>100) 
+    if((Tmr-lsRn1)>70) 
       {
         if(s1==0 and x1<0){x1++;lsRn1=Tmr;}
         if(s1==1 and x1>-16 and stateI == false){x1--;lsRn1=Tmr;}
@@ -238,7 +238,7 @@ void cekSelisihSholat(int y)
      {
        if(floatnow >= sholatT[7] && floatnow <= 23.59)
        {
-         Serial.println("active");
+         //Serial.println("active");
          cek1 = floatnow - 12.00;
          cek2 = 12.00 - cek1;
          value = cek2 + sholatT[cekNext];
@@ -335,7 +335,7 @@ void Jam_GD(uint16_t y)   // Draw Time Depan  jam besar di depan
     Disp.drawText(1,y,BuffJ);  //tampilkan jam
     Disp.drawText(25,y,BuffM);  //tampilkan menit
   //  fType(3);
-    Disp.drawText(50,y,BuffD);  //tampilkan detik
+    Disp.drawText(50,y,BuffD);  //tampilkan detik drawCircle
     Disp.drawRect(20,y+3,18,y+5,1);
     Disp.drawRect(20,y+10,18,y+12,1);
 
@@ -468,8 +468,8 @@ void blinkBlock(int DrawAdd)
     int               mnt, scd;//
     char              locBuff[6];//
 
-    if(jumat)       {ct_l = 20; }//Prm.JM * 60;}
-    else            {ct_l = 20; }//Prm.SO * 60;}
+    if(jumat)       {ct_l = 5 * 60; }//Prm.JM * 60;}
+    else            {ct_l = 5 * 60; }//Prm.SO * 60;}
     jumat =false;
      
     if((Tmr-lsRn)> 900)
@@ -480,6 +480,7 @@ void blinkBlock(int DrawAdd)
         scd = (ct_l-ct)%60;
         sprintf(locBuff,"%d:%02d",mnt,scd);
         fType(2);
+        Serial.println(String() + "locBuff:" + locBuff);
       //  Disp.drawText(1,7,"SHOLAT"); // tampil tunggu sholat
 //////////////////////////////jam besar
 uint16_t y;

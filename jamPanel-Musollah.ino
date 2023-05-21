@@ -100,7 +100,7 @@ int         RunFinish = 0 ;
 float latitude =  -7.364057;
 float longitude = 112.646222;
 float timezone = +07.00;
-float ketinggian = 10;
+float ketinggian = 50;
 char Hari[7][12] = {"MINGGU","SENIN","SELASA","RABU","KAMIS","JUM'AT","SABTU"};
 char *sholatt[] = {"IMMAK","SHUBUH","TERBIT","DHUHA","DHUHUR","ASHAR","MAGHRIB","ISYA"};
 //=======================================
@@ -149,7 +149,7 @@ void loop()
    // dwMrq(msgPuasa(hd_puasa,ty_puasa),75,0,4);                  // addr: 5 show Remander Puasa
     drawSholat(5);                                              // addr: 5 show sholat time
     dwMrq(drawInfo()    ,70,1,6);                             // addr: 6 show Info 1
-   dwMrq(drawCounterBack(),60,3,7);
+     dwMrq(drawCounterBack(),60,3,7);
     // anim_DT(7);                                                 // addr: 7 show date time    
     //dwMrq(drawInfo(280)   ,75,2,8);                             // addr: 8 show Info 2
   //  drawSholat(9);                                              // addr: 9 show sholat time
@@ -186,7 +186,7 @@ void loop()
 //    if(RunFinish==10) {RunSel = 1;  RunFinish =0;}                      //after anim 10 set anim 1
     
     
-    if(RunFinish==100 and jumat )     {RunSel = 104; RunFinish = 0; reset_x = 1;}  //after Azzan Jumat (anim 100)
+    if(RunFinish==100 and jumat )     {RunSel = 1; RunFinish = 0; reset_x = 1;}  //after Azzan Jumat (anim 100)
     else if(RunFinish==100)           {RunSel = 101; RunFinish =0;}               //after Azzan Sholah (Iqomah)
         
     if(RunFinish==101) {RunSel = 104; RunFinish =0; reset_x=1;}       //after Iqomah(anim 101) set Message Sholah (anim 102)   

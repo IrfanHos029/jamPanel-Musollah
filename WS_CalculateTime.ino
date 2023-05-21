@@ -81,9 +81,11 @@ float HourAngle( float Alfa, float Declination, float Latitude)
 
 void Pray_Time(float TimeZone, float Latitude, float Longitude,float Altitude,float Declination, float EquationOfTime )
   { 
-    Prm.IH = 2;
-     Prm.II = 2;
+      Prm.IH = 2;
+     Prm.II = 1;
      Prm.IS = 2;
+     Prm.IA = 1;
+     Prm.IL = 2;
     // Dzuhur
     float BaseTime = fix_hour((float)12+TimeZone-(Longitude/15)-EquationOfTime);
     sholatT[4] = BaseTime + (float)Prm.IH/60 + (float)Prm.IL/60;
