@@ -87,7 +87,7 @@ uint8_t         reset_x    = 0;
 
 //Other Variable
 float sholatT[8]  = {0,0,0,0,0,0,0,0};
-uint8_t Iqomah[8] = {0,3,0,0,3,3,3,3};
+uint8_t Iqomah[8] = {0,5,0,0,5,5,3,5};
 
 //Blue tooth Pram Receive
 char        CH_Prm[155];

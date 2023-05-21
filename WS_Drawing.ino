@@ -468,8 +468,8 @@ void blinkBlock(int DrawAdd)
     int               mnt, scd;//
     char              locBuff[6];//
 
-    if(jumat)       {ct_l = 5 * 60; }//Prm.JM * 60;}
-    else            {ct_l = 5 * 60; }//Prm.SO * 60;}
+    if(jumat)       {ct_l = 10 * 60; }//Prm.JM * 60;}
+    else            {ct_l = 10 * 60; }//Prm.SO * 60;}
     jumat =false;
      
     if((Tmr-lsRn)> 900)
