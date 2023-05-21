@@ -113,7 +113,7 @@ void Pray_Time(float TimeZone, float Latitude, float Longitude,float Altitude,fl
     // Imsak
     sholatT[0] = sholatT[1]-(float)10/60;  
     // Dhuha
-    HA = HourAngle((float)-4.5,Declination,Latitude);
+    HA = HourAngle((float)-5.2,Declination,Latitude);
     sholatT[3] = BaseTime - HA;
   char buff[100];
   }

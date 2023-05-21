@@ -101,8 +101,8 @@ float latitude =  -7.364057;
 float longitude = 112.646222;
 float timezone = +07.00;
 float ketinggian = 50;
-char Hari[7][12] = {"MINGGU","SENIN","SELASA","RABU","KAMIS","JUM'AT","SABTU"};
-char *sholatt[] = {"IMMAK","SHUBUH","TERBIT","DHUHA","DHUHUR","ASHAR","MAGHRIB","ISYA"};
+char Hari[7][12] = {"SENIN","SELASA","RABU","KAMIS","JUM'AT","SABTU","MINGGU"};
+char *sholatt[] = {"IMSAK","SUBUH","TERBIT","DHUHA","DZUHUR ","ASHAR","MAGRIB","ISYA"};
 //=======================================
 //===SETUP=============================== 
 //=======================================

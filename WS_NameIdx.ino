@@ -107,8 +107,8 @@ char* sholatN(int number) // get sholat name from EEPROM
 char * DayName(int number)  // get Day Name from EEPROM
     {
       static char  locBuff[10];
-      if(number == 7){ number = 0; }
-      sprintf(locBuff,"%s ",Hari[number]); 
+     // if(number == 7){ number = 0; }
+      sprintf(locBuff,"%s ",Hari[number-1]); 
       return locBuff;
     }
 
@@ -133,7 +133,7 @@ char * drawDayDate()
 
 char *  drawMasjidName()
   {
-      static char  bufMN[] = "MUSOLLAH SABIYLU.EL MUHTADIYN";
+      static char  bufMN[] = "MUSHOLLA SABIYLU.EL MUHTADIYN";
 //      static char  out[85];
 //      char  locBuff[10];
 //      int   locLen = (Prm.MT-1)*10;
@@ -145,7 +145,7 @@ char *  drawMasjidName()
  
 char *  drawInfo()
   {
-      static char  out[150] = "luruskan dan rapatkan shaf sholat";
+      static char  out[150] = "Luruskan dan Rapatkan Shaff Sholat";
       //EEPROM.get(addr,out);
       return out;
   }
