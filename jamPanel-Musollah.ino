@@ -208,7 +208,7 @@ void Disp_init()
   { Disp.setDoubleBuffer(true);
     Timer1.initialize(2000);
     Timer1.attachInterrupt(scan);
-    setBrightness(150);
+    setBrightness(200);
     fType(1);  
     Disp.clear();
     Disp.swapBuffers();
@@ -252,7 +252,7 @@ void update_All_data()
   nowH = toHijri(now.year(),now.month(),now.day(),date_cor);  // load Hijir Date
   
   if ((floatnow > (float)21.00) or (floatnow < (float)3.30) )    {setBrightness(15);}
-      else                                                   {setBrightness(150);}  
+      else                                                   {setBrightness(200);}  
      /////// Serial.println((float)3.5);
   }
   

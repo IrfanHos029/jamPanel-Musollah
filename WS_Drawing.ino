@@ -20,7 +20,7 @@ void drawAzzan(int DrawAdd)
             dwCtr(0,0,"ADZAN");
             fType(1);
             if(jumat) {dwCtr(0,8,sholatN(8));}
-            else      {dwCtr(0,8,sholatN(SholatNow));}
+            else      {dwCtr(0,8,sholatt[SholatNow]);}
             Buzzer(1);
           }
         else 
