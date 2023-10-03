@@ -204,6 +204,7 @@ void drawSholat(int DrawAdd)
 bool stateCekCon=false;
 int cekNext; 
  float value;
+ float cek1,cek2,cek3;
 void cekSelisihSholat(int y)
 {
  //if(!dwDo(DrawAdd)) return;
@@ -233,9 +234,9 @@ void cekSelisihSholat(int y)
  };
 
  float testOut = 0.52 ;
- float cek1,cek2,cek3;
+ 
      if(stateCekCon)
-     {
+     {sholatCal();
        if(floatnow >= sholatT[7] && floatnow <= 23.59)
        {
          //Serial.println("active");

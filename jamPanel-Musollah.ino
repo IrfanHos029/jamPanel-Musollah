@@ -1,5 +1,5 @@
 /*************************************************************************************
- JAM JWS MUSOLLAH
+ JAM JWS MUSOLLAH m
 **************************************************************************************/
 #include <SPI.h>
 #include <DMD3asis.h>
@@ -109,11 +109,17 @@ char *sholatt[] = {"IMSAK","SUBUH","TERBIT","DHUHA","DZUHUR ","ASHAR","MAGRIB","
 void setup()
   { //init comunications 
     Wire.begin();
-    Serial.begin(9600);
+    Serial.begin(115200);
      pinMode(BUZZ, OUTPUT); 
-         
+      for(int i = 0; i < 2; i++)
+     {
+      digitalWrite(BUZZ,HIGH);
+      delay(50);
+      digitalWrite(BUZZ,LOW);
+      delay(50);
+     }
     // Get Saved Parameter from EEPROM   
-    updateTime();
+   // updateTime();
 //    GetPrm();
 //     SendPrm();
 //    Clock.setHour(21);
@@ -128,6 +134,7 @@ void setup()
 //=======================================
 void loop()
   { 
+    now = RTC.now();
     // Reset & Init Display State
     update_All_data();   //every time
     check_azzan();  //check Sholah Time for Azzan
